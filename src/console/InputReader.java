@@ -15,8 +15,31 @@ public class InputReader {
 
     private final Scanner in;
 
+    /**
+     * Se pone en {@code true} la primera vez que cualquier metodo de lectura
+     * encuentra stdin agotado ({@code !in.hasNextLine()}). Una vez agotada,
+     * la entrada no vuelve a tener lineas, asi que el flag nunca se resetea.
+     *
+     * <p>Los metodos de lectura sin "reintento con verificacion externa"
+     * ({@link #readInt}, {@link #readYesNo}, {@link #readAcceptReject})
+     * devuelven un valor de repliegue seguro apenas se agota la entrada, sin
+     * necesidad de que el llamador consulte este flag. Pero
+     * {@link #readEdgeChoice} se usa dentro de bucles que reintentan si la
+     * arista devuelta ya fue usada (ver {@code TrainingMode}/{@code ChallengeMode});
+     * si la entrada esta agotada, el mismo valor de repliegue se devolveria
+     * en cada reintento sin nunca avanzar. Esos llamadores deben consultar
+     * {@link #isExhausted()} despues de cada llamada a {@code readEdgeChoice}
+     * y cortar el bucle en vez de reintentar, para no colgarse.</p>
+     */
+    private boolean exhausted = false;
+
     public InputReader(Scanner in) {
         this.in = in;
+    }
+
+    /** Devuelve {@code true} si ya se detecto que stdin no tiene mas lineas. */
+    public boolean isExhausted() {
+        return exhausted;
     }
 
     /**
@@ -29,6 +52,7 @@ public class InputReader {
             if (!in.hasNextLine()) {
                 // Entrada agotada (por ejemplo, stdin redirigido desde un archivo
                 // que se termino): devolvemos el minimo para no colgar el programa.
+                exhausted = true;
                 return min;
             }
             String line = in.nextLine().trim();
@@ -60,8 +84,12 @@ public class InputReader {
             System.out.print(prompt);
             if (!in.hasNextLine()) {
                 // Sin mas entrada disponible: devolvemos la primera arista del
-                // grafo para no colgar el programa en una ejecucion con stdin
-                // redirigido que se quedo corta.
+                // grafo como repliegue seguro (nunca null/excepcion), pero
+                // marcamos exhausted=true para que los llamadores que
+                // reintentan ante aristas repetidas (TrainingMode/ChallengeMode)
+                // puedan detectar esto y cortar el bucle en vez de colgarse
+                // reintentando por siempre sobre la misma arista.
+                exhausted = true;
                 return graph.edges().get(0);
             }
             String line = in.nextLine().trim();
@@ -101,6 +129,7 @@ public class InputReader {
         while (true) {
             System.out.print(prompt);
             if (!in.hasNextLine()) {
+                exhausted = true;
                 return false;
             }
             String line = in.nextLine().trim().toLowerCase();
@@ -121,6 +150,7 @@ public class InputReader {
         while (true) {
             System.out.print(prompt);
             if (!in.hasNextLine()) {
+                exhausted = true;
                 return false;
             }
             String line = in.nextLine().trim().toLowerCase();

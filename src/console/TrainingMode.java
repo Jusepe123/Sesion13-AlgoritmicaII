@@ -37,6 +37,15 @@ public class TrainingMode implements ModeRunner {
             System.out.println("Componentes restantes: " + game.remainingComponents());
 
             Edge elegida = elegirAristaNoUsada(reader, graph, usadas);
+            if (elegida == null) {
+                // Entrada agotada (stdin redirigido que se quedo corto) mientras
+                // reintentabamos por una arista ya usada: no hay forma de seguir
+                // pidiendo una eleccion valida, asi que cortamos la partida aqui
+                // en vez de reintentar para siempre sobre el mismo repliegue.
+                System.out.println();
+                System.out.println("Entrada agotada. Terminando la partida.");
+                break;
+            }
             usadas.add(elegida);
 
             SelectionOutcome outcome = game.select(elegida);
@@ -48,10 +57,21 @@ public class TrainingMode implements ModeRunner {
         return game;
     }
 
+    /**
+     * Pide una arista no usada aun. Devuelve {@code null} si la entrada se
+     * agota (ver {@link InputReader#isExhausted()}) antes de conseguir una
+     * arista valida: en ese caso no reintentamos (reintentar devolveria
+     * siempre el mismo repliegue de {@link InputReader#readEdgeChoice} y
+     * colgaria el programa), sino que le indicamos al llamador que corte el
+     * bucle de turnos.
+     */
     private Edge elegirAristaNoUsada(InputReader reader, Graph graph, Set<Edge> usadas) {
         while (true) {
             Edge candidata = reader.readEdgeChoice(
                     "\nElige una arista (indice, o \"u v\"): ", graph);
+            if (reader.isExhausted()) {
+                return null;
+            }
             if (usadas.contains(candidata)) {
                 System.out.println("  Esa arista ya fue utilizada. Elige otra.");
                 continue;
