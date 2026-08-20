@@ -1,0 +1,5 @@
+out/
+out-gui/
+lib/
+.superpowers/
+*.class
