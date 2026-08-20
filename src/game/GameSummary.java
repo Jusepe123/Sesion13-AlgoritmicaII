@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Resumen final (o parcial) de una partida, comparando al jugador contra el
- * optimo calculado por Kruskal.
+ * optimo del arbol de expansion minima.
  *
  * <p>{@code score} y {@code scoreClassification} son {@code null} siempre que
  * {@code !graphConnected || !playerConnected}: un puntaje numerico no tiene

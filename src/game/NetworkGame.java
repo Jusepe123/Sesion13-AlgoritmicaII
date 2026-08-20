@@ -11,10 +11,11 @@ import java.util.List;
  * Motor del modo "jugador" del juego: el humano elige aristas una a una y
  * este motor valida cada eleccion usando exclusivamente {@link DisjointSet}.
  *
- * <p>Esta clase NUNCA debe importar ni invocar {@code algorithm.Kruskal},
- * ni siquiera indirectamente: el modo jugador no puede "jugarse solo"
- * ejecutando el algoritmo en secreto. Esa es una regla explicita del
- * enunciado y se verifica por revision de codigo.</p>
+ * <p>Esta clase NUNCA debe importar ni invocar el paquete {@code algorithm}
+ * ni ninguna clase que calcule el arbol de expansion minima, ni siquiera
+ * indirectamente: el modo jugador no puede "jugarse solo" ejecutando ese
+ * algoritmo en secreto. Esa es una regla explicita del enunciado y se
+ * verifica por revision de codigo.</p>
  */
 public class NetworkGame {
 
