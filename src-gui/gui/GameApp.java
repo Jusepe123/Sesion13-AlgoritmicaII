@@ -102,7 +102,10 @@ public class GameApp extends Application {
 
     private ComboBox<LevelChoice> levelBox;
     private ComboBox<Mode> modeBox;
+
+    /** Los dos botones que revelan el optimo; se bloquean juntos (ver {@link #revealsOptimum()}). */
     private Button replayButton;
+    private Button compareButton;
 
     public static void main(String[] args) {
         launch(args);
@@ -180,9 +183,9 @@ public class GameApp extends Application {
         replayButton.setMaxWidth(Double.MAX_VALUE);
         replayButton.setOnAction(ev -> playKruskalReplay());
 
-        Button compare = new Button("Comparar con Kruskal");
-        compare.setMaxWidth(Double.MAX_VALUE);
-        compare.setOnAction(ev -> showComparison());
+        compareButton = new Button("Comparar con Kruskal");
+        compareButton.setMaxWidth(Double.MAX_VALUE);
+        compareButton.setOnAction(ev -> showComparison());
 
         VBox panel = new VBox(8,
                 sectionTitle("Partida"),
@@ -196,7 +199,7 @@ public class GameApp extends Application {
                 sectionTitle("Bitacora"),
                 log,
                 new Separator(),
-                replayButton, compare,
+                replayButton, compareButton,
                 scoreLegend());
         panel.setPadding(new Insets(14));
         panel.setPrefWidth(340);
@@ -321,11 +324,26 @@ public class GameApp extends Application {
                     ? "Sin aristas disponibles: la red quedo incompleta."
                     : "En progreso.";
         });
-        if (replayButton != null) {
-            // En modo Desafio la reproduccion del optimo se habilita recien al
-            // terminar, para no regalar la respuesta durante la partida.
-            replayButton.setDisable(!currentMode().revealsComponents && !isFinished());
-        }
+        boolean locked = !revealsOptimum();
+        if (replayButton != null)  replayButton.setDisable(locked);
+        if (compareButton != null) compareButton.setDisable(locked);
+    }
+
+    /**
+     * Si el jugador puede ver el optimo ahora mismo.
+     *
+     * <p>Vale para AMBOS botones que lo revelan: "Animar Kruskal" pinta el MST
+     * sobre el lienzo y "Comparar con Kruskal" lista sus aristas y su costo en
+     * el {@link ComparisonPanel}. Bloquear solo uno no sirve de nada: el otro
+     * filtra exactamente la misma respuesta.</p>
+     *
+     * <p>En Modo Entrenamiento la informacion esta abierta desde el principio.
+     * En Modo Desafio se revela recien al terminar la partida, que es tambien
+     * lo que hace la consola: {@code app.Main} solo llama a
+     * {@code GameEvaluator.evaluate} despues de que el modo retorna.</p>
+     */
+    private boolean revealsOptimum() {
+        return currentMode().revealsComponents || isFinished();
     }
 
     /** Terminada = el motor la marco COMPLETO, o ya no quedan aristas por probar. */
