@@ -8,15 +8,20 @@ realmente ejecutados sobre el codigo final del proyecto.
 21.0.8+9), PowerShell 5.1. Fecha de captura: 2026-08-20.
 
 **Reproducibilidad:** cualquier bloque de esta seccion se puede regenerar
-ejecutando:
+ejecutando (Windows, desde `cmd.exe` o con el wrapper `cmd /c` que se muestra
+abajo — ver la nota en README.md: una PowerShell interactiva rechaza el `<`
+suelto con "the '<' operator is reserved for future use", y ademas
+PowerShell 5.1 antepone un caracter espurio al convertir texto para un pipe
+hacia un ejecutable nativo, lo que corrompe la primera linea de entrada):
 
 ```
 powershell -ExecutionPolicy Bypass -File scripts\compile.ps1
 powershell -ExecutionPolicy Bypass -File scripts\run-tests.ps1
-powershell -ExecutionPolicy Bypass -File scripts\run-console.ps1 < scripts\inputs\<archivo>.txt
+cmd /c "powershell -ExecutionPolicy Bypass -File scripts\run-console.ps1 < scripts\inputs\<archivo>.txt"
 ```
 
-(en Git Bash / Linux / macOS: `sh scripts/compile.sh`, `sh scripts/run-tests.sh`,
+(en Git Bash / Linux / macOS, donde `<` funciona de forma directa:
+`sh scripts/compile.sh`, `sh scripts/run-tests.sh`,
 `sh scripts/run-console.sh < scripts/inputs/<archivo>.txt`).
 
 ---
