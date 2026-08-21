@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101828">
+  <title>NetworkBuilder · Kruskal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">ALGORÍTMICA II · KRUSKAL</p><h1>NetworkBuilder</h1></div>
+      <button id="restart" class="quiet">↻ Reiniciar</button>
+    </header>
+
+    <section id="welcome" class="card welcome">
+      <p class="eyebrow">DESAFÍO EN VIVO</p>
+      <h2>Construye la red más barata</h2>
+      <p>Elige aristas sin crear ciclos. Ganas al conectar todos los nodos con el menor costo posible.</p>
+      <label for="level">Elige un nivel</label>
+      <select id="level">
+        <option value="1">1 · Tutorial</option>
+        <option value="2">2 · Desafío</option>
+        <option value="3">3 · Empates</option>
+        <option value="4">4 · Red desconectada</option>
+      </select>
+      <button id="start">Jugar ahora →</button>
+    </section>
+
+    <section id="game" hidden>
+      <div class="stats" aria-live="polite">
+        <div><span>Costo</span><strong id="cost">0</strong></div>
+        <div><span>Componentes</span><strong id="components">–</strong></div>
+        <div><span>Aristas elegidas</span><strong id="chosen">0</strong></div>
+      </div>
+      <div class="layout">
+        <section class="card"><h2>Tu red</h2><div id="graph" class="graph" aria-label="Grafo del nivel"></div><p id="hint" class="hint">Selecciona una arista para comenzar.</p></section>
+        <section class="card edges"><h2>Aristas disponibles</h2><p class="instruction">Cada selección se valida con Union-Find.</p><div id="edge-list"></div></section>
+      </div>
+    </section>
+
+    <section id="result" class="card result" hidden></section>
+  </main>
+  <footer>Hecho para entender Kruskal: conectar todo, evitando ciclos y minimizando el costo.</footer>
+  <script src="app.js"></script>
+</body>
+</html>

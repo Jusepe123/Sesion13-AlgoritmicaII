@@ -209,7 +209,62 @@ pase `-Force`.
 5. Ejecutar `scripts\compile-gui.ps1` y luego `scripts\run-gui.ps1` como de
    costumbre.
 
+## Demo web para la presentacion (QR)
+
+Ademas de las interfaces de consola y JavaFX, el proyecto incluye una version
+web estatica y adaptable a celulares en `web/`. Usa los mismos cuatro grafos y
+la misma mecanica del juego: el jugador selecciona aristas y Union-Find evita
+ciclos. Cada persona que abre el enlace juega una partida independiente; no
+requiere instalar Java ni crear una cuenta.
+
+### Ejecutarla en la red local
+
+Desde la raiz del proyecto, se necesita Python 3:
+
+```sh
+python3 -m http.server 8080 --directory web
+```
+
+En la misma computadora se abre `http://localhost:8080`. Para que dispositivos
+conectados al mismo Wi-Fi accedan directamente, se puede usar la IP local de la
+computadora, por ejemplo `http://192.168.x.x:8080` (puede requerir permitir el
+puerto 8080 en el firewall).
+
+### Publicarla temporalmente con Cloudflare Tunnel
+
+Esta opcion es conveniente para una clase porque evita configurar el router o
+compartir una IP local. Mantener el servidor anterior abierto y, en otra
+terminal, ejecutar:
+
+```sh
+# Descargar cloudflared una sola vez en Linux x64 (o instalarlo desde
+# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/)
+curl -fL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /tmp/cloudflared
+chmod +x /tmp/cloudflared
+
+# Crear un enlace publico temporal
+/tmp/cloudflared tunnel --url http://127.0.0.1:8080
+```
+
+Cloudflare imprimira una URL similar a
+`https://palabras-aleatorias.trycloudflare.com`. Abrirla primero desde el
+telefono para comprobarla y mostrar esa URL como codigo QR. Los *quick tunnels*
+no son permanentes: el enlace deja de funcionar cuando se cierra `cloudflared`,
+se suspende la computadora o se pierde la conexion. Para una publicacion
+permanente, usar un hosting estatico (por ejemplo GitHub Pages) en lugar del
+tunel temporal.
+
+### Crear el QR
+
+Con la URL publica ya verificada, se puede generar un PNG de alta resolucion:
+
+```sh
+curl -fL 'https://api.qrserver.com/v1/create-qr-code/?size=900x900&format=png&data=PEGA_AQUI_LA_URL_PUBLICA' -o web/networkbuilder-qr.png
+```
+
+El archivo de QR se ignora intencionalmente en Git, porque cada URL de un quick
+tunnel es distinta y temporal.
+
 ## Entregable final
 
 Nombre del zip a entregar: `[TODO: confirmar apellido/nombre]`.
-
