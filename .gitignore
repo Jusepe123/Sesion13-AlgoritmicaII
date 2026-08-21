@@ -4,4 +4,5 @@ lib/
 .superpowers/
 *.class
 node_modules/
+dist/
 .amplify-hosting/

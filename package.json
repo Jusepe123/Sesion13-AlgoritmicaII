@@ -1,0 +1,12 @@
+{
+  "name": "networkbuilder-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static web edition of NetworkBuilder for AWS Amplify Hosting",
+  "scripts": {
+    "build": "node scripts/build-web.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

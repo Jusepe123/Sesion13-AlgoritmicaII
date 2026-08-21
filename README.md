@@ -13,14 +13,28 @@ Para desplegarla:
 2. En AWS Amplify, elegir **Create new app > Git provider** y conectar el repositorio.
 3. Amplify detectara `amplify.yml`; confirmar la configuracion y desplegar.
 
-No se necesitan variables de entorno, backend ni dependencias npm. El directorio
-publicado es `web/`. Para probarla localmente se puede ejecutar desde la raiz:
+No se necesitan variables de entorno ni backend. Amplify ejecuta `npm ci` y
+`npm run build`, y publica el directorio generado `dist/`.
+
+Para verificar exactamente el mismo build antes de compartirlo:
+
+```sh
+npm ci
+npm run build
+```
+
+Para probar la version fuente localmente se puede ejecutar desde la raiz:
 
 ```sh
 python -m http.server 8080 --directory web
 ```
 
 y abrir `http://localhost:8080`.
+
+Al terminar el despliegue, Amplify muestra un dominio publico con formato
+`https://<rama>.<app-id>.amplifyapp.com`. Ese enlace se puede compartir sin
+instalar Java ni JavaFX. En **Hosting > Access control**, mantener la rama sin
+proteccion por contrasena si se desea acceso publico.
 
 Juego de consola en Java 21 que implementa el algoritmo de Kruskal (Union-Find
 con union por rango y compresion de caminos) como un juego de aceptacion de
