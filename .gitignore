@@ -3,3 +3,5 @@ out-gui/
 lib/
 .superpowers/
 *.class
+node_modules/
+.amplify-hosting/

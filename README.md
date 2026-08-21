@@ -1,5 +1,27 @@
 # NetworkBuilder
 
+## Version web y despliegue en AWS Amplify
+
+El proyecto incluye una version web estatica en `web/`, adaptada para AWS
+Amplify Hosting. Conserva los cuatro niveles, Union-Find, Kruskal, la formula
+de puntuacion y los modos Entrenamiento/Desafio. La aplicacion Java original
+permanece sin cambios.
+
+Para desplegarla:
+
+1. Subir este repositorio a GitHub, GitLab, Bitbucket o CodeCommit.
+2. En AWS Amplify, elegir **Create new app > Git provider** y conectar el repositorio.
+3. Amplify detectara `amplify.yml`; confirmar la configuracion y desplegar.
+
+No se necesitan variables de entorno, backend ni dependencias npm. El directorio
+publicado es `web/`. Para probarla localmente se puede ejecutar desde la raiz:
+
+```sh
+python -m http.server 8080 --directory web
+```
+
+y abrir `http://localhost:8080`.
+
 Juego de consola en Java 21 que implementa el algoritmo de Kruskal (Union-Find
 con union por rango y compresion de caminos) como un juego de aceptacion de
 aristas: el jugador construye una red de costo minimo eligiendo aristas una a
