@@ -35,16 +35,16 @@ public class GraphCanvas extends Canvas {
     /** Estado visual de una arista, en orden de prioridad de pintado. */
     private enum EdgeStyle { UNSELECTED, ACCEPTED, REJECTED_FLASH, REPLAY }
 
-    private static final Color BACKGROUND       = Color.web("#1e2530");
-    private static final Color EDGE_UNSELECTED  = Color.web("#6b7683");
-    private static final Color EDGE_ACCEPTED    = Color.web("#3fbf6f");
+    private static final Color BACKGROUND       = Color.web("#111a28");
+    private static final Color EDGE_UNSELECTED  = Color.web("#596d83");
+    private static final Color EDGE_ACCEPTED    = Color.web("#62d9b7");
     private static final Color EDGE_REJECTED    = Color.web("#e2504a");
-    private static final Color EDGE_REPLAY      = Color.web("#f0a733");
-    private static final Color EDGE_HOVER       = Color.web("#9fb0c4");
-    private static final Color VERTEX_FILL      = Color.web("#2f3b4c");
-    private static final Color VERTEX_STROKE    = Color.web("#c8d3e0");
-    private static final Color LABEL_COLOR      = Color.web("#e7edf5");
-    private static final Color WEIGHT_BG        = Color.web("#151b23");
+    private static final Color EDGE_REPLAY      = Color.web("#ffbd5b");
+    private static final Color EDGE_HOVER       = Color.web("#8fcae8");
+    private static final Color VERTEX_FILL      = Color.web("#1b2a40");
+    private static final Color VERTEX_STROKE    = Color.web("#8fcae8");
+    private static final Color LABEL_COLOR      = Color.web("#f4f8fc");
+    private static final Color WEIGHT_BG        = Color.web("#0a111c");
 
     private static final double VERTEX_RADIUS = 18;
     private static final double MARGIN        = 46;

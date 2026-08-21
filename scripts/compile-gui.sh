@@ -34,5 +34,9 @@ echo "  module-path: $FX_LIB"
 javac -d "$(to_native "$OUT_DIR")" --module-path "$FX_LIB" \
       --add-modules "$JAVAFX_MODULES" "@$(to_native "$SOURCES")"
 
+mkdir -p "$OUT_DIR/gui"
+cp "$REPO_ROOT/src-gui/gui/theme.css" "$OUT_DIR/gui/theme.css"
+cp -R "$REPO_ROOT/src-gui/gui/assets" "$OUT_DIR/gui/assets"
+
 echo "OK: compilacion exitosa -> $OUT_DIR"
 echo "Siguiente paso: sh scripts/run-gui.sh"

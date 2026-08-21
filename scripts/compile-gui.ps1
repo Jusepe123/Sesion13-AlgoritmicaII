@@ -45,5 +45,8 @@ if ($code -ne 0) {
     exit $code
 }
 
+Copy-Item (Join-Path $RepoRoot "src-gui\gui\theme.css") (Join-Path $OutDir "gui\theme.css") -Force
+Copy-Item (Join-Path $RepoRoot "src-gui\gui\assets") (Join-Path $OutDir "gui\assets") -Recurse -Force
+
 Write-Host "OK: compilacion exitosa -> $OutDir" -ForegroundColor Green
 Write-Host "Siguiente paso: powershell -ExecutionPolicy Bypass -File scripts\run-gui.ps1"
