@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="NetworkBuilder: aprende Kruskal construyendo una red de costo minimo.">
+  <title>NetworkBuilder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><div><p class="eyebrow">ALGORITMICA II · KRUSKAL</p><h1>NetworkBuilder</h1></div><p class="intro">Conecta todos los nodos con el menor costo posible. Haz clic en las aristas para construir tu red.</p></header>
+  <main>
+    <section class="board" aria-label="Grafo interactivo"><canvas id="graph"></canvas><div id="result" class="result hidden" role="status"></div></section>
+    <aside>
+      <div class="controls"><label>Nivel<select id="level"><option value="0">1 · Tutorial</option><option value="1">2 · Desafío</option><option value="2">3 · Empates</option><option value="3">4 · Desconectado</option></select></label><label>Modo<select id="mode"><option value="training">Entrenamiento</option><option value="challenge">Desafío</option></select></label><button id="restart">Reiniciar nivel</button></div>
+      <div class="stats"><div><span>Costo</span><strong id="cost">0</strong></div><div><span>Aceptadas</span><strong id="accepted">0</strong></div><div id="componentsBox"><span>Componentes</span><strong id="components">0</strong></div><div><span>Ciclos</span><strong id="cycles">0</strong></div></div>
+      <section class="log"><h2>Bitácora</h2><ol id="log" aria-live="polite"></ol></section>
+      <button id="compare" class="primary">Comparar con Kruskal</button>
+      <div class="legend"><span><i class="available"></i>Disponible</span><span><i class="selected"></i>Aceptada</span><span><i class="rejected"></i>Ciclo</span><span><i class="optimal"></i>Kruskal</span></div>
+    </aside>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

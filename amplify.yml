@@ -1,0 +1,12 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - echo "Static web edition - no dependencies to install"
+  artifacts:
+    baseDirectory: web
+    files:
+      - '**/*'
+  cache:
+    paths: []
