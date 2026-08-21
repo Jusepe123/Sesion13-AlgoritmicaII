@@ -3,10 +3,10 @@ frontend:
   phases:
     build:
       commands:
-        - echo "Static web edition - no dependencies to install"
+        - test -f web/index.html
+        - test -f web/styles.css
+        - test -f web/app.js
   artifacts:
     baseDirectory: web
     files:
       - '**/*'
-  cache:
-    paths: []
